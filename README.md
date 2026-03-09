@@ -12,6 +12,8 @@
 
 A full-featured library management system built from scratch with Go, Gin and GORM. Includes JWT authentication, book catalog, loan management, admin panel and user administration.
 
+> ⚠️ **This project is for demonstration and portfolio purposes only. It is not intended for production use.**
+
 [Report Bug](https://github.com/vddeseifecastro/biblioteca-final/issues) · [Request Feature](https://github.com/vddeseifecastro/biblioteca-final/issues)
 
 </div>
@@ -133,9 +135,10 @@ go run ./cmd/web/main.go
 
 Server running at `http://localhost:8080`
 
-Default admin credentials:
-- **Username:** `admin`
-- **Password:** `admin123`
+### First Login
+The system automatically creates a default admin account on first run.  
+Credentials are printed to the console during startup.  
+To update the admin password manually, use any SQLite client and update the `users` table directly.
 
 ---
 
@@ -194,6 +197,7 @@ borrowed → active → overdue
 ## 🌱 Upcoming Features
 
 - [ ] Deploy on Railway or Render
+- [ ] Password change from user profile
 - [ ] Email notifications on loan status change
 - [ ] Book reviews & ratings
 - [ ] Advanced search filters
