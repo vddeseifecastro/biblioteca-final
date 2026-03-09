@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Panel de Administración - Biblioteca</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap + FontAwesome + Chart.js -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        body {
+            background: #f5f6fb;
+            font-family: "Inter", sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* Cards */
+        .card-stats {
+            border-radius: 16px;
+            border: none;
+            padding: 15px;
+            background: #fff;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .small-muted {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* Quick actions */
+        .quick-card {
+            border-radius: 16px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+            transition: 0.2s;
+        }
+        .quick-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+
+        .quick-icon {
+            font-size: 2.4rem;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5c6ee5, #6d3f99);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 260px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/dashboard">
+            <i class="fas fa-book me-2"></i> Biblioteca Digital
+        </a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3 text-white">{{.name}} (admin)</span>
+            <a class="btn btn-outline-light btn-sm" href="/logout">
+                <i class="fas fa-sign-out-alt me-1"></i> Salir
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold"><i class="fas fa-tachometer-alt me-2 text-primary"></i> Panel de Administración</h2>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="row g-3 mb-4">
+        
+        <div class="col-md-3">
+            <div class="card-stats">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small-muted">Total de libros</div>
+                        <div class="stat-number">{{.totalBooks}}</div>
+                    </div>
+                    <i class="fas fa-book fa-2x text-primary"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-stats">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small-muted">Disponibles</div>
+                        <div class="stat-number">{{.availableBooks}}</div>
+                    </div>
+                    <i class="fas fa-book-open fa-2x text-success"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-stats">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small-muted">Préstamos activos</div>
+                        <div class="stat-number">{{.activeLoans}}</div>
+                    </div>
+                    <i class="fas fa-clock fa-2x text-warning"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-stats">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small-muted">Préstamos vencidos</div>
+                        <div class="stat-number">{{.overdueLoans}}</div>
+                    </div>
+                    <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <h4 class="fw-bold mb-3"><i class="fas fa-bolt me-2 text-warning"></i> Gestiones rápidas</h4>
+
+    <div class="row g-3 mb-5">
+        
+        <!-- LIBROS -->
+        <div class="col-md-4">
+            <div class="quick-card">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-book quick-icon text-primary me-3"></i>
+                    <h5 class="m-0 fw-bold">Libros</h5>
+                </div>
+
+                <p class="small-muted mb-3">Gestión completa del catálogo.</p>
+
+                <ul class="small mb-3">
+                    <li><strong>Total:</strong> {{.totalBooks}}</li>
+                    <li><strong>Disponibles:</strong> {{.availableBooks}}</li>
+                    <li><strong>No disponibles:</strong> {{.unavailableBooks}}</li>
+                </ul>
+
+                <a href="/books" class="btn btn-primary w-100 mb-2">
+                    <i class="fas fa-eye me-1"></i> Ver libros
+                </a>
+                <a href="/books/new" class="btn btn-success w-100">
+                    <i class="fas fa-plus me-1"></i> Añadir libro
+                </a>
+            </div>
+        </div>
+
+        <!-- USUARIOS -->
+        <div class="col-md-4">
+            <div class="quick-card">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-users quick-icon text-info me-3"></i>
+                    <h5 class="m-0 fw-bold">Usuarios</h5>
+                </div>
+
+                <p class="small-muted mb-3">Control administrativo de cuentas.</p>
+
+                <ul class="small mb-3">
+                    <li><strong>Total:</strong> {{.totalUsers}}</li>
+                </ul>
+
+                <a href="/admin/users" class="btn btn-info text-white w-100 mb-2">
+                    <i class="fas fa-eye me-1"></i> Ver usuarios
+                </a>
+                <a href="/register" class="btn btn-secondary w-100">
+                    <i class="fas fa-user-plus me-1"></i> Añadir usuario
+                </a>
+            </div>
+        </div>
+
+        <!-- PRÉSTAMOS -->
+        <div class="col-md-4">
+            <div class="quick-card">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-hand-holding-book quick-icon text-warning me-3"></i>
+                    <h5 class="m-0 fw-bold">Préstamos</h5>
+                </div>
+
+                <p class="small-muted mb-3">Control de préstamos activos y vencidos.</p>
+
+                <ul class="small mb-3">
+                    <li><strong>Activos:</strong> {{.activeLoans}}</li>
+                    <li><strong>Vencidos:</strong> {{.overdueLoans}}</li>
+                </ul>
+
+                <a href="/loans/admin" class="btn btn-warning w-100 mb-2">
+                    <i class="fas fa-eye me-1"></i> Ver préstamos
+                </a>
+
+                <a href="/books" class="btn btn-outline-secondary w-100">
+                    <i class="fas fa-plus me-1"></i> Registrar préstamo
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- GRÁFICOS -->
+    <div class="row g-3 mb-4">
+        
+        <div class="col-lg-6">
+            <div class="card-stats p-3">
+                <h6 class="fw-bold mb-3">Disponibilidad de libros</h6>
+                <div class="chart-container">
+                    <canvas id="booksPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card-stats p-3">
+                <h6 class="fw-bold mb-3">Préstamos activos vs vencidos</h6>
+                <div class="chart-container">
+                    <canvas id="loansBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-4 text-center text-muted">
+        <small>Biblioteca Digital — Panel administrativo</small>
+    </div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const availableBooks   = {{.availableBooks}};
+    const unavailableBooks = {{.unavailableBooks}};
+    const activeLoans      = {{.activeLoans}};
+    const overdueLoans     = {{.overdueLoans}};
+
+    /* Pie Chart */
+    new Chart(document.getElementById('booksPieChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Disponibles', 'No disponibles'],
+            datasets: [{
+                data: [availableBooks, unavailableBooks],
+                backgroundColor: ['#28a745cc', '#dc3545cc'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            plugins: { legend: { position: 'bottom' }},
+            maintainAspectRatio: false
+        }
+    });
+
+    /* Bar Chart */
+    new Chart(document.getElementById('loansBarChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Activos', 'Vencidos'],
+            datasets: [{
+                data: [activeLoans, overdueLoans],
+                backgroundColor: ['#ffc107cc', '#dc3545cc']
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false }},
+            scales: { y: { beginAtZero: true }},
+            maintainAspectRatio: false
+        }
+    });
+</script>
+
+</body>
+</html>

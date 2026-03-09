@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Libros - Biblioteca Digital</title>
+
+<!-- Bootstrap + FontAwesome -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background: #f5f6fb;
+        font-family: "Inter", sans-serif;
+    }
+
+    .page-title {
+        font-weight: 700;
+        color: #333;
+    }
+
+    .card-modern {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+        background: #ffffff;
+        padding: 25px;
+    }
+
+    .badge-modern {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        border-radius: 10px;
+    }
+
+    .book-card {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: transform 0.2s;
+        background: #fff;
+    }
+
+    .book-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .book-card img {
+        height: 220px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .book-card-body {
+        padding: 12px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #5b6dd6, #6a4095);
+    }
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/dashboard">
+            <i class="fas fa-book me-2"></i> Biblioteca Digital
+        </a>
+        <span class="navbar-text text-white">
+            {{.name}} | <a href="/logout" class="text-white">Salir</a>
+        </span>
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="page-title"><i class="fas fa-book me-2 text-primary"></i> Libros</h2>
+
+        {{if eq .role "admin"}}
+        <a href="/books/new" class="btn btn-primary btn-modern">
+            <i class="fas fa-plus me-1"></i> Nuevo libro
+        </a>
+        {{end}}
+    </div>
+
+    <!-- Card principal -->
+    <div class="card-modern">
+
+        <!-- Buscador -->
+        <form method="GET" action="/books" class="row g-3 mb-4">
+            <div class="col-md-5 position-relative">
+                <i class="fas fa-search" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#888;"></i>
+                <input type="text" class="form-control" style="padding-left:38px;" name="search" placeholder="Buscar libro, autor, ISBN..." value="{{.search}}">
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100 btn-modern">
+                    Buscar
+                </button>
+            </div>
+        </form>
+
+        <!-- Catálogo de libros -->
+        {{if .books}}
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+            {{range .books}}
+            <div class="col">
+                <div class="book-card h-100 d-flex flex-column">
+                    {{if .CoverImage}}
+                    <img src="{{.CoverImage}}" alt="{{.Title}}">
+                    {{else}}
+                    <div class="d-flex align-items-center justify-content-center" style="height:220px; background:#e2e6f0;">
+                        <i class="fas fa-book fa-3x text-muted"></i>
+                    </div>
+                    {{end}}
+                    <div class="book-card-body flex-grow-1 d-flex flex-column">
+                        <h5 class="fw-bold mb-1">{{.Title}}</h5>
+                        <p class="mb-1"><small>Autor: {{.Author}}</small></p>
+                        <p class="mb-1"><small>ISBN: {{.ISBN}}</small></p>
+                        <p class="mb-1">
+                            {{if gt .Available 0}}
+                                <span class="badge bg-success badge-modern">Disponible: {{.Available}} / {{.Stock}}</span>
+                            {{else}}
+                                <span class="badge bg-danger badge-modern">Sin stock</span>
+                            {{end}}
+                        </p>
+                        <div class="mt-auto d-flex justify-content-between flex-wrap gap-1">
+                            <a href="/books/{{.ID}}" class="btn btn-sm btn-outline-primary mb-1 w-48"><i class="fas fa-eye"></i></a>
+                            {{if eq $.role "admin"}}
+                            <a href="/books/{{.ID}}/edit" class="btn btn-sm btn-outline-warning mb-1 w-48"><i class="fas fa-edit"></i></a>
+                            <form action="/books/{{.ID}}/delete" method="POST" style="display:inline" class="w-100">
+                                <button type="submit" class="btn btn-sm btn-danger w-100 mb-1"><i class="fas fa-trash"></i></button>
+                            </form>
+                            {{end}}
+                            {{if gt .Available 0}}
+                            <a href="/books/{{.ID}}/borrow" class="btn btn-sm btn-outline-success mb-1 w-100"><i class="fas fa-hand-paper"></i> Tomar</a>
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+        {{else}}
+        <div class="text-center py-5">
+            <i class="fas fa-book fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">No hay libros registrados</h5>
+            {{if eq .role "admin"}}
+            <a href="/books/new" class="btn btn-primary mt-3">
+                Agregar libro
+            </a>
+            {{end}}
+        </div>
+        {{end}}
+
+    </div> <!-- /card-modern -->
+
+</div> <!-- /container -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

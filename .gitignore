@@ -1,0 +1,29 @@
+# === Variables de entorno (NUNCA subir a GitHub) ===
+.env
+
+# === Base de datos (contiene datos reales) ===
+*.db
+*.db-shm
+*.db-wal
+
+# === Binarios compilados de Go ===
+/biblioteca-final
+*.exe
+*.out
+
+# === Imágenes subidas por usuarios ===
+static/covers/*.jpg
+static/covers/*.jpeg
+static/covers/*.png
+
+# === Herramientas y caché de Go ===
+vendor/
+
+# === Sistema operativo ===
+.DS_Store
+Thumbs.db
+
+# === IDEs ===
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,86 @@
+/* Estilos adicionales personalizados */
+
+/* Animaciones */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cards personalizadas */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Badges personalizados */
+.badge-outline {
+    background-color: transparent;
+    border: 1px solid;
+}
+
+/* Tablas */
+.table-hover tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Formularios */
+.form-floating > label {
+    padding-left: 0.75rem;
+}
+
+/* Botones */
+.btn-rounded {
+    border-radius: 50px;
+}
+
+/* Sidebar */
+.sidebar .nav-link {
+    border-radius: 8px;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+}
+
+.sidebar .nav-link.active {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+/* Loader */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        position: static;
+        height: auto;
+    }
+    
+    .stat-card {
+        margin-bottom: 15px;
+    }
+}

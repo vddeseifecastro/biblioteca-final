@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Perfil de {{.name}}</h2>
+            <a href="/profile/edit" class="btn btn-warning">Editar Perfil</a>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Datos personales</h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item"><strong>Usuario:</strong> {{.username}}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{.email}}</li>
+                    <li class="list-group-item"><strong>Rol:</strong> {{.role}}</li>
+                    {{if .blocked}}
+                    <li class="list-group-item text-danger"><strong>Bloqueado hasta:</strong> {{.blocked}}</li>
+                    {{end}}
+                </ul>
+                <h4>Preferencias</h4>
+                <pre>{{.preferences}}</pre>
+            </div>
+            <div class="col-md-6">
+                <h4>Estadísticas</h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item"><strong>Total de préstamos:</strong> {{.totalLoans}}</li>
+                    <li class="list-group-item"><strong>Libros devueltos:</strong> {{.returned}}</li>
+                    <li class="list-group-item"><strong>Préstamos atrasados:</strong> {{.late}}</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <h4>Historial de Préstamos</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Libro</th>
+                    <th>Fecha de Vencimiento</th>
+                    <th>Devuelto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .loans}}
+                <tr>
+                    <td>{{.Book.Title}}</td>
+                    <td>{{if .DueDate}}{{.DueDate}}{{else}}-{{end}}</td>
+                    <td>{{if .Returned}}Sí{{else}}No{{end}}</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
