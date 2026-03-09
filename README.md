@@ -24,51 +24,51 @@ A full-featured library management system built from scratch with Go, Gin and GO
 
 **Login**
 
-![Login](PLACEHOLDER_1_LOGIN)
+![Login](https://github.com/user-attachments/assets/8f5c1aae-468f-4475-aabe-37d83af11e1c)
 
 **Register**
 
-![Register](PLACEHOLDER_2_REGISTER)
+![Register](https://github.com/user-attachments/assets/685a56e7-d25d-49ed-a897-ea86ccac0238)
 
 ### ⚙️ Admin Dashboard
 
-![Admin Dashboard 1](PLACEHOLDER_3_ADMIN_DASHBOARD)
+![Admin Dashboard 1](https://github.com/user-attachments/assets/ad4d8a69-832c-404c-8032-baf72e391563)
 
-![Admin Dashboard 2](PLACEHOLDER_4_ADMIN_DASHBOARD)
+![Admin Dashboard 2](https://github.com/user-attachments/assets/988da001-3c95-4264-a262-24ca764aae56)
 
 ### 📚 Books
 
-![Books 1](PLACEHOLDER_5_BOOKS)
+![Books 1](https://github.com/user-attachments/assets/b6d66b0d-9887-4493-85bd-70c03cbc025c)
 
-![Books 2](PLACEHOLDER_6_BOOKS)
+![Books 2](https://github.com/user-attachments/assets/8ddcea02-1e55-4d88-9840-cfea6f671b21)
 
 ### ➕ New Book
 
-![New Book](PLACEHOLDER_7_NEW_BOOK)
+![New Book](https://github.com/user-attachments/assets/a0aea398-52f9-4f33-96f2-f09ba67ceecf)
 
 ### 👥 User Administration
 
-![User Administration](PLACEHOLDER_8_USER_ADMIN)
+![User Administration](https://github.com/user-attachments/assets/366c26b6-349e-42f3-ad8a-788df64f48a9)
 
 ### 🔍 Book Detail
 
-![Book Detail](PLACEHOLDER_9_BOOK_DETAIL)
+![Book Detail](https://github.com/user-attachments/assets/11016ff3-fcb1-484f-b33f-e3a23c5866e8)
 
 ### ✏️ Edit Book
 
-![Edit Book](PLACEHOLDER_10_EDIT_BOOK)
+![Edit Book](https://github.com/user-attachments/assets/d3c6f48a-016c-446f-98a6-a774aff38047)
 
 ### 🔄 Loan Management
 
-![Loan Management](PLACEHOLDER_11_LOAN_MANAGEMENT)
+![Loan Management](https://github.com/user-attachments/assets/c67d9eee-574c-41bd-80e2-9d6d5112f253)
 
 ### 🏠 User Panel
 
-![User Panel](PLACEHOLDER_12_USER_PANEL)
+![User Panel](https://github.com/user-attachments/assets/f0098c4e-5c00-45da-8a77-8a4bb712127d)
 
 ### 🚫 Unauthorized Access Error
 
-![Unauthorized Error](PLACEHOLDER_13_ERROR)
+![Unauthorized Error](https://github.com/user-attachments/assets/04ee84c3-8223-447f-9dd9-794e27d467b4)
 
 ---
 
